@@ -1,0 +1,9 @@
+[submodule "lib/Arduino_MFRC522v2"]
+	path = lib/Arduino_MFRC522v2
+	url = https://github.com/OSSLibraries/Arduino_MFRC522v2.git
+[submodule "lib/Arduino_MFRC522v2Extended"]
+	path = lib/Arduino_MFRC522v2Extended
+	url = https://github.com/mhaberler/Arduino_MFRC522v2Extended.git
+[submodule "lib/NDEF"]
+	path = lib/NDEF
+	url = https://github.com/mhaberler/NDEF
