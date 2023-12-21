@@ -35,7 +35,7 @@ MFRC522DriverSPI driver{ss_pin, spiClass, spiSettings}; // Create SPI driver.
 MFRC522Extended mfrc522{driver}; // Create MFRC522 instance.
 
 NfcAdapter nfc = NfcAdapter(&mfrc522);
-StaticJsonDocument<2048> ndefmsg;
+StaticJsonDocument<2048> jsondoc;
 
 void setup(void)
 {
@@ -57,6 +57,7 @@ void loop(void)
   {
     Serial.println("Reading NFC tag");
     NfcTag tag = nfc.read();
+
     Serial.println(tag.getTagType());
     Serial.print("UID: ");
     Serial.println(tag.getUidString());
@@ -65,6 +66,12 @@ void loop(void)
     {
 
       NdefMessage message = tag.getNdefMessage();
+      message.toJson(jsondoc);
+      Serial.print("json='");
+      serializeJsonPretty(jsondoc, Serial);
+      Serial.println("'");
+
+      Serial.println("'");
       Serial.print(
           "\nThis NFC Tag contains an NDEF Message with ");
       Serial.print(message.getRecordCount());
@@ -75,10 +82,7 @@ void loop(void)
       }
       Serial.println(".");
 
-      message.toJson(ndefmsg);
-      Serial.print("json='");
-
-      serializeJsonPretty(ndefmsg, Serial);
+      serializeJsonPretty(jsondoc, Serial);
       Serial.println("'");
 
       // cycle through the records, printing some info from each
@@ -130,6 +134,11 @@ void loop(void)
         }
       }
     }
+    tag.toJson(jsondoc);
+    Serial.print("tag='");
+    serializeJsonPretty(jsondoc, Serial);
+    Serial.println("'");
+
     nfc.haltTag();
   }
   delay(1000);
