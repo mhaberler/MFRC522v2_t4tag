@@ -6,7 +6,8 @@
         "unordered_map": "cpp",
         "vector": "cpp",
         "string_view": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "functional": "cpp"
     },
     "C_Cpp.clang_format_fallbackStyle": "",
     "C_Cpp.clang_format_path": "/opt/homebrew/bin/clang-format",
