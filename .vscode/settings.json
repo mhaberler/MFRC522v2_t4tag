@@ -8,5 +8,7 @@
         "string_view": "cpp",
         "initializer_list": "cpp"
     },
-    "C_Cpp.clang_format_fallbackStyle": ""
+    "C_Cpp.clang_format_fallbackStyle": "",
+    "C_Cpp.clang_format_path": "/opt/homebrew/bin/clang-format",
+    "scm.diffDecorationsIgnoreTrimWhitespace": "inherit"
 }
