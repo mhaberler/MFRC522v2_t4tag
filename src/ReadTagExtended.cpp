@@ -58,12 +58,12 @@ void loop(void)
 {
   if (nfc.tagPresent())
   {
-    Serial.println("Reading NFC tag");
+    Serial.println("\nReading NFC tag");
     NfcTag tag = nfc.read();
 
     tag.toJson(jsondoc);
     serializeJsonPretty(jsondoc, Serial);
-    // nfc.haltTag();
+    nfc.haltTag();
   }
   delay(1000);
 }
