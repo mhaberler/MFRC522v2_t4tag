@@ -63,6 +63,7 @@ void loop(void)
 
     tag.toJson(jsondoc);
     serializeJsonPretty(jsondoc, Serial);
+    jsondoc.clear();
     nfc.haltTag();
   }
   delay(1000);
