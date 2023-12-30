@@ -82,6 +82,7 @@ loop (void)
 {
     if (nfc.tagPresent ())
         {
+            // MFRC522Debug::PICC_DumpMifareUltralightToSerial(mfrc522, Serial);
             Serial.println ("\nReading NFC tag");
             NfcTag tag = nfc.read ();
 
