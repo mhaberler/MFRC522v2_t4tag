@@ -1,0 +1,8 @@
+--style=google
+--indent=spaces=4
+--indent-classes
+--indent-switches
+--indent-cases
+--indent-preproc-block
+--indent-preproc-define
+--indent-col1-comments
