@@ -7,7 +7,7 @@
         "height" : 1137,
         "serial": "5020/27",
         "color" : "#454C5D",
-        "remark": "graues Tag, kein mechanischer Sensor",
+        "remark": "graues Tag",
         "sensors": [
             {
                 "level": {
@@ -25,3 +25,4 @@
         ]
     }
 }
+

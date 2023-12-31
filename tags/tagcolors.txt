@@ -1,18 +1,7 @@
-blue    #002AB3 rgb(0, 42, 179)     5020/15
-amber   #DD6D1D rgb(221, 109, 29)   5020/16
-white   #B8CAD7 rgb(184, 202, 215)  5020/24
-grey    #454C5D rgb(69, 76, 93)     5020/27
-yellow  #D3C120 rgb(211, 193, 32)   5020/40
-green   #55D733 rgb(85, 215, 51)    5020/69
-
-
-
-
-5020/15 F8:95:D1:79:44:21  links von e-box gegenüber -  ok
-5020/16 D8:C6:11:CA:12:55 rechts von e-box gegenüber, TPMS1_11796F  80:EA:CA:11:79:6F
-5020/24 EC:A7:32:91:78:E2 rechts von e-box - ok
-5020/27 C7:D8:88:F2:EB:44 links vom e-box  hat TPMS Sensor  -  tpms 82:EA:CA:31:78:C8  TPMS3_3178C8 - kein mechanischer Tanksensor - ok
-5020/40 E7:38:29:A0:A1:D7 montiert, heraussen - 45% voll
-5020/69 CA:E3:54:FA:09:B7 montiert, heraussen  - ok
-
+blue    #002AB3 rgb(0, 42, 179)     5020/15   F8:95:D1:79:44:21
+amber   #DD6D1D rgb(221, 109, 29)   5020/16   D8:C6:11:CA:12:55 TPMS1_11796F 80:EA:CA:11:79:6F
+white   #B8CAD7 rgb(184, 202, 215)  5020/24   EC:A7:32:91:78:E2 
+grey    #454C5D rgb(69, 76, 93)     5020/27   C7:D8:88:F2:EB:44 TPMS3_3178C8 82:EA:CA:31:78:C8   
+yellow  #D3C120 rgb(211, 193, 32)   5020/40   E7:38:29:A0:A1:D7
+green   #55D733 rgb(85, 215, 51)    5020/69  CA:E3:54:FA:09:B7 
 

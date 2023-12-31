@@ -70,7 +70,64 @@ Decoding 141 bytes
 
 `````
 
-## Bugs
 
-crashes on NDEF messages > 255 bytes
+## Writing and recognizing custom tags 
 
+For my project, I need to recognize Ruuvi tags, and custom-written Mifare 1K tags
+I used [cheap chinese tags](https://www.amazon.de/gp/product/B01DAAO1KG) (very likely clones but OK for my purpose)
+
+The custom tags were written with [NFC Tools for Desktop](https://www.wakdev.com/en/apps/nfc-tools-pc-mac.html) using an ACR122U USB reader.
+
+They contain an NDEF message with 2 records:
+- a URI record containing a link to the manufacturer site
+- a MIME message with type "application/balloonware", containing a JSON message (see tags/*json)
+
+The NFC Tools formatted JSON files can be used for duplication, see tags/nfc-tools/*.json
+
+### example reading a Ruuvi tag:
+
+`````
+Reading NFC tag
+analyseTag=1
+{
+  "ID": "C5:5A:B4:FC:52:5C:F4:B2",
+  "MAC": "C2:6E:D1:70:2B:44",
+  "SW": "Ruuvi FW v3.31.1+default"
+}
+`````
+
+### example reading a custom Mifare1k tag:
+
+`````
+Reading NFC tag
+Message Length 701
+Buffer Size 722
+analyseTag=4
+{
+  "tank": {
+    "type": "Kubicek King Size",
+    "capacity": 82.5,
+    "tara": 24.5,
+    "full": 65,
+    "height": 1137,
+    "serial": "5020/16",
+    "color": "#DD6D1D",
+    "remark": "oranges Tag",
+    "sensors": [
+      {
+        "level": {
+          "mac": "D8:C6:11:CA:12:55",
+          "min": 100,
+          "max": 857
+        }
+      },
+      {
+        "pressure": {
+          "mac": "80:EA:CA:11:79:6F",
+          "name": "TPMS1_11796F"
+        }
+      }
+    ]
+  }
+}
+`````
