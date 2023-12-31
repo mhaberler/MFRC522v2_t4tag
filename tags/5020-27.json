@@ -1,0 +1,27 @@
+{
+    "tank": {
+        "type": "Kubicek King Size",
+        "capacity": 82.5,
+        "tara" : 24.5,
+        "full" : 65,
+        "height" : 1137,
+        "serial": "5020/27",
+        "color" : "#454C5D",
+        "remark": "graues Tag, kein mechanischer Sensor",
+        "sensors": [
+            {
+                "level": {
+                    "mac": "C7:D8:88:F2:EB:44",
+                    "min": 100,
+                    "max": 857
+                }
+            },
+            {
+                "pressure": {
+                    "mac": "82:EA:CA:31:78:C8",
+                    "name": "TPMS3_3178C8"
+                }
+            }
+        ]
+    }
+}

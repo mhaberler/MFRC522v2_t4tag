@@ -1,0 +1,27 @@
+{
+    "tank": {
+        "type": "Kubicek King Size",
+        "capacity": 82.5,
+        "tara" : 24.5,
+        "full" : 65,
+        "height" : 1137,
+        "serial": "5020/16",
+        "color" : "#DD6D1D",
+        "remark": "oranges Tag",
+        "sensors": [
+            {
+                "level": {
+                    "mac": "D8:C6:11:CA:12:55",
+                    "min": 100,
+                    "max": 857
+                }
+            },
+            {
+                "pressure": {
+                    "mac": "80:EA:CA:11:79:6F",
+                    "name": "TPMS1_11796F"
+                }
+            }
+        ]
+    }
+}

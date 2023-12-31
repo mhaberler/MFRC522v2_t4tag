@@ -1,0 +1,7 @@
+5020/15 F8:95:D1:79:44:21  links von e-box gegenüber -  ok
+5020/16 D8:C6:11:CA:12:55 rechts von e-box gegenüber, TPMS1_11796F  80:EA:CA:11:79:6F
+5020/24 EC:A7:32:91:78:E2 rechts von e-box - ok
+5020/27 C7:D8:88:F2:EB:44 links vom e-box  hat TPMS Sensor  -  tpms 82:EA:CA:31:78:C8  TPMS3_3178C8 - kein mechanischer Tanksensor - ok
+5020/40 E7:38:29:A0:A1:D7 montiert, heraussen - 45% voll
+5020/69 CA:E3:54:FA:09:B7 montiert, heraussen  - ok
+

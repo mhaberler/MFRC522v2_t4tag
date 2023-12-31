@@ -1,0 +1,21 @@
+{
+    "tank": {
+        "type": "Kubicek King Size",
+        "capacity": 82.5,
+        "tara" : 24.5,
+        "full" : 65,
+        "height" : 1137,
+        "serial": "5020/15",
+        "color" : "#002AB3",
+        "remark": "blaues Tag",
+        "sensors": [
+            {
+                "level": {
+                    "mac": "F8:95:D1:79:44:21",
+                    "min": 100,
+                    "max": 857
+                }
+            }
+        ]
+    }
+}

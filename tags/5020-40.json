@@ -1,0 +1,21 @@
+{
+    "tank": {
+        "type": "Kubicek King Size",
+        "capacity": 82.5,
+        "tara" : 24.5,
+        "full" : 65,
+        "height" : 1137,
+        "serial": "5020/40",
+        "color" : "#D3C120",
+        "remark": "gelbes Tag",
+        "sensors": [
+            {
+                "level": {
+                    "mac": "E7:38:29:A0:A1:D7",
+                    "min": 100,
+                    "max": 857
+                }
+            }
+        ]
+    }
+}
