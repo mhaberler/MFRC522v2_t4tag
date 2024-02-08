@@ -68,6 +68,8 @@ static const char *ruuvi_ids[] = {
     "\002dt",
 };
 
+int32_t reads, answers;
+
 bwTagType_t
 analyseTag(NfcTag &tag, JsonDocument &doc) {
     if (!tag.hasNdefMessage()) {
@@ -151,21 +153,29 @@ void setup(void) {
 }
 
 void loop(void) {
+    reads++;
     if (nfc.tagPresent()) {
         Serial.println("\nReading NFC tag");
         NfcTag tag = nfc.read();
 
         bwTagType_t type = analyseTag(tag, jsondoc);
         Serial.printf("analyseTag=%d\n", type);
+#ifndef SILENT
         if (type != BWTAG_NO_MATCH) {
             serializeJsonPretty(jsondoc, Serial);
         }
+#endif
         jsondoc.clear();
-
+        nfc.haltTag();
+        answers++;
         // tag.toJson (jsondoc);
         // serializeJsonPretty (jsondoc, Serial);
         // jsondoc.clear ();
-        nfc.haltTag();
+
+        mfrc522.PCD_AntennaOff();
+        delay(2000);
+        mfrc522.PCD_AntennaOn();
     }
+    Serial.printf("reads %d answers %d\n", reads, answers);
     delay(1000);
 }
