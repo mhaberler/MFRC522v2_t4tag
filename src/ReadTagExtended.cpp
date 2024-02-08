@@ -1,8 +1,12 @@
 
 #ifdef M5UNIFIED
     #include <M5Unified.h>
-#else
+#endif
+#ifdef PLAIN_ARDUINO
     #include <Arduino.h>
+#endif
+#ifdef M5STICK
+    #include "M5StickCPlus.h"
 #endif
 
 #ifdef USE_I2C
@@ -118,10 +122,13 @@ analyseTag(NfcTag &tag, JsonDocument &doc) {
 void setup(void) {
 #ifdef M5UNIFIED
     M5.begin();
-#else
+#endif
+#ifdef PLAIN_ARDUINO
     Serial.begin(115200);
 #endif
-
+#ifdef M5STICK
+    M5.begin();
+#endif
 #ifdef STARTUP_DELAY
     delay(STARTUP_DELAY);
 #endif
