@@ -46,7 +46,7 @@ MFRC522DriverSPI driver{ss_pin, spiClass, spiSettings}; // Create SPI driver.
 MFRC522Extended mfrc522{driver}; // Create MFRC522 instance.
 
 NfcAdapter nfc = NfcAdapter(&mfrc522);
-StaticJsonDocument<2048> jsondoc;
+JsonDocument jsondoc;
 
 typedef enum {
     BWTAG_NO_MATCH,
@@ -60,6 +60,7 @@ typedef enum {
 } bwTagType_t;
 
 #define BW_MIMETYPE "application/balloonware"
+#define BW_ALT_MIMETYPE "bw"
 
 static const char *ruuvi_ids[] = {
     "\002idID: ",
@@ -101,8 +102,10 @@ analyseTag(NfcTag &tag, JsonDocument &doc) {
         for (auto i = 0; i < nrec; i++) {
             NdefRecord record = tag.getNdefMessage()[i];
 
-            if (record.getType() && (strncmp((const char *)record.getType(),
-                                             BW_MIMETYPE, record.getTypeLength()) == 0)) {
+            if (record.getType() && (((strncmp((const char *)record.getType(),
+                                              BW_MIMETYPE, record.getTypeLength()) == 0))||
+                    (strncmp((const char *)record.getType(),
+                             BW_ALT_MIMETYPE, record.getTypeLength()) == 0))) {
                 // this is for us. Payload is a JSON string.
                 String payload = String(record.getPayload(),
                                         record.getPayloadLength());
@@ -152,6 +155,8 @@ void setup(void) {
 
 void loop(void) {
     if (nfc.tagPresent()) {
+        Serial.println("\ndetected NFC tag");
+        // delay(1000);
         Serial.println("\nReading NFC tag");
         NfcTag tag = nfc.read();
 
@@ -162,10 +167,10 @@ void loop(void) {
         }
         jsondoc.clear();
 
-        // tag.toJson (jsondoc);
-        // serializeJsonPretty (jsondoc, Serial);
-        // jsondoc.clear ();
+        tag.tagToJson (jsondoc);
+        serializeJsonPretty (jsondoc, Serial);
+        jsondoc.clear ();
         nfc.haltTag();
     }
-    delay(1000);
+    delay(10);
 }
