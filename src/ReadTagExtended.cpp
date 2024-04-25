@@ -69,6 +69,14 @@ static const char *ruuvi_ids[] = {
     "\002dt",
 };
 
+static bool mfrc522_initialized = false;
+
+bool detect_i2cdevice(TwoWire *_port, uint8_t addr) {
+    _port->beginTransmission(addr);
+    uint8_t err = _port->endTransmission();
+    return  (err == 0);
+}
+
 bwTagType_t
 analyseTag(NfcTag &tag, JsonDocument &doc) {
     if (!tag.hasNdefMessage()) {
@@ -103,9 +111,9 @@ analyseTag(NfcTag &tag, JsonDocument &doc) {
             NdefRecord record = tag.getNdefMessage()[i];
 
             if (record.getType() && (((strncmp((const char *)record.getType(),
-                                              BW_MIMETYPE, record.getTypeLength()) == 0))||
-                    (strncmp((const char *)record.getType(),
-                             BW_ALT_MIMETYPE, record.getTypeLength()) == 0))) {
+                                               BW_MIMETYPE, record.getTypeLength()) == 0))||
+                                     (strncmp((const char *)record.getType(),
+                                              BW_ALT_MIMETYPE, record.getTypeLength()) == 0))) {
                 // this is for us. Payload is a JSON string.
                 String payload = String(record.getPayload(),
                                         record.getPayloadLength());
@@ -146,31 +154,45 @@ void setup(void) {
 #else
     SPI.begin(SCK_PIN, MISO_PIN, MOSI_PIN, SS_PIN);
 #endif
-    mfrc522.PCD_Init(); // Init MFRC522
-    nfc.begin();
-    nfc.setMifareKey(&key);
-    MFRC522Debug::PCD_DumpVersionToSerial(
-        mfrc522, Serial); // Show version of PCD - MFRC522 Card Reader.
 }
 
 void loop(void) {
-    if (nfc.tagPresent()) {
-        Serial.println("\ndetected NFC tag");
-        // delay(1000);
-        Serial.println("\nReading NFC tag");
-        NfcTag tag = nfc.read();
+    bool readerfound = detect_i2cdevice(&Wire, customAddress);
 
-        bwTagType_t type = analyseTag(tag, jsondoc);
-        Serial.printf("analyseTag=%d\n", type);
-        if (type != BWTAG_NO_MATCH) {
-            serializeJsonPretty(jsondoc, Serial);
+    if (readerfound ^ mfrc522_initialized) { 
+        if (readerfound) {
+            // just plugged in
+            log_e("RFID reader detected");
+            mfrc522.PCD_Init();  // causes useless Wire.begin()
+            nfc.begin();
+            nfc.setMifareKey(&key);
+            MFRC522Debug::PCD_DumpVersionToSerial(
+                mfrc522, Serial); // Show version of PCD - MFRC522 Card Reader.
+            mfrc522_initialized = true;
+        } else {
+            if (mfrc522_initialized)
+                log_e("RFID reader was unplugged");
+            mfrc522_initialized = false;
+            return;
         }
-        jsondoc.clear();
+    }
+    if (mfrc522_initialized) {
+        if (nfc.tagPresent()) {
+            Serial.println("\nReading NFC tag");
+            NfcTag tag = nfc.read();
 
-        tag.tagToJson (jsondoc);
-        serializeJsonPretty (jsondoc, Serial);
-        jsondoc.clear ();
-        nfc.haltTag();
+            bwTagType_t type = analyseTag(tag, jsondoc);
+            Serial.printf("analyseTag=%d\n", type);
+            if (type != BWTAG_NO_MATCH) {
+                serializeJsonPretty(jsondoc, Serial);
+            }
+            jsondoc.clear();
+
+            tag.tagToJson(jsondoc);
+            serializeJsonPretty (jsondoc, Serial);
+            jsondoc.clear();
+            nfc.haltTag();
+        }
     }
     delay(10);
 }
